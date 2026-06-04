@@ -21,14 +21,16 @@ class JournalEntry {
     var body: String
     var dateCreated: Date
     var isFavorite: Bool
+    var category: Category
     
-    init(title: String, body: String, dateCreated: Date = .now, isFavorite: Bool = false) {
+    init(title: String, body: String, dateCreated: Date = .now, isFavorite: Bool = false, category: Category = .unknown) {
       
         self.title = title
         self.body = body
         self.dateCreated = dateCreated
         self.isFavorite = isFavorite
-
+        self.category = category
+        
     }
     
     

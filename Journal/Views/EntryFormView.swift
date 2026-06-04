@@ -16,7 +16,7 @@ struct EntryFormView: View {
     @State private var title: String = ""
     @State private var entryBody: String = ""
     @State private var isFavorite: Bool = false
-    
+    @State var category: Category
     
     
     var body: some View {
@@ -31,6 +31,16 @@ struct EntryFormView: View {
             Section("Favorite"){
                 Toggle("is it Favorite?", isOn: $isFavorite)
             }
+            Section("Category"){
+                Picker("Catergory?", selection: $category){
+                    ForEach(Category.allCases, id:\.self){category in
+                        Text(category.rawValue).tag(category)
+                        
+                    }
+                }
+            }
+            
+
             
         }.navigationTitle(entry == nil ? "New Entry" : "Edit Entry")
             .toolbar{
@@ -51,6 +61,7 @@ struct EntryFormView: View {
                 title = entry.title
                 entryBody = entry.body
                 isFavorite = entry.isFavorite
+                category = entry.category
             }
         
         
@@ -67,8 +78,9 @@ struct EntryFormView: View {
             entry.title = t
             entry.body = b
             entry.isFavorite = isFavorite
+            entry.category = category
         }else {
-            context.insert(JournalEntry(title: t, body: b, isFavorite: isFavorite))
+            context.insert(JournalEntry(title: t, body: b, isFavorite: isFavorite, category: category))
         }
         dismiss()
     }
@@ -76,6 +88,6 @@ struct EntryFormView: View {
 
 #Preview {
     NavigationStack{
-        EntryFormView(entry: JournalEntry(title: "title", body: "content"))
+       
     }
 }

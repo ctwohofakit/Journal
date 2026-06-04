@@ -17,8 +17,8 @@ struct SettingsView: View {
 
     
 
+    @AppStorage(SETTINGS_SHOW_CATEGORY) private var showCategory: Bool = SETTINGS_SHOW_CATEGORY_VALUE
 
-    
     
     var body: some View {
         NavigationStack{
@@ -28,14 +28,22 @@ struct SettingsView: View {
                         ForEach(Theme.allCases, id: \.self) {theme in
                             Text(theme.rawValue).tag(theme)
                         }
-                        Picker("Title Size", selection: $titleSize){
-                            ForEach(TitleSize.allCases, id: \.self) { size in
-                                Text(size.rawValue).tag(size)
-                            }
-                        }
-                        
                     }
+                    
+                    Picker("Title Size", selection: $titleSize){
+                        ForEach(TitleSize.allCases, id: \.self) { size in
+                            Text(size.rawValue).tag(size)
+                        }
+                    }
+                    
+                    
+                    //
                  
+                }
+                Section(header: Text("Category Labels")){
+                    Toggle(isOn: $showCategory){
+                        Text("Show category")
+                    }
                 }
                 
             }
